@@ -1,0 +1,90 @@
+body {
+  background-color: #038f36;
+}
+
+.container {
+  height: 1000px;
+  width: 100%;
+  background: url("https://images.unsplash.com/photo-1655159428752-c700435e9983?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8YmxhY2tqYWNrfGVufDB8fDB8fHww");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+h1 {
+  color: #f7e4c6;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  font-weight: bold;
+}
+
+.secondRow {
+  margin-top: 300px;
+}
+
+#bidAmount {
+  width: 200px;
+  height: 30px;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+  padding-left: 5px;
+  font-size: 20px;
+  font-weight: bold;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+
+#startGame {
+  width: 200px;
+  height: 30px;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+  padding-left: 5px;
+  font-size: 20px;
+  font-weight: bold;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  background-color: #f7e4c6;
+  color: #038f36;
+  cursor: pointer;
+  transition: 0.5s;
+}
+
+#startGame:hover {
+  background-color: #038f36;
+  color: #f7e4c6;
+}
+
+.controlButtons {
+  position: relative;
+  top: 150px;
+  /* put buttons in a middle of a container */
+  display: flex;
+  justify-content: center;
+}
+
+.playerCardsImg {
+  position: relative; /* Container should be relative */
+  height: 200px; /* Adjust based on your card size */
+  width: auto; /* Adjust based on your needs */
+}
+
+.card-img {
+  position: absolute;
+  left: 0;
+  top: 0;
+  transition: left 0.5s; /* Smooth transition for the left shift */
+}
+
+.card-img:not(:first-child) {
+  left: calc(var(--card-offset) * 30px); /* Shift each card to the right */
+}
+
+.messages {
+  color: #f7e4c6;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  font-weight: bold;
+}
