@@ -84,6 +84,9 @@ localStorage.setItem("totalMoney", totalMoney);
 totalMoneyHTML.innerHTML = `Your total money is: ${totalMoney}`;
 
 function startGame() {
+  //play a sound
+  const audio = new Audio("./assets/startCards.mp3");
+  audio.play();
   fetch(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=2`)
     .then((response) => response.json())
     .then((data) => {
@@ -104,24 +107,24 @@ function startGame() {
 
 startGame();
 
-const getAceValue = (totalPoints, cardValue, playerCards) => {
-  // Count the number of existing Aces in the hand
-  const existingAces = playerCards.filter(
-    (card) => card.value === "ACE"
-  ).length;
+const getAceValue = (totalPoints, cardValue, cards) => {
+  const aceCount = cards.filter((card) => card.value === "ACE").length;
 
   if (cardValue === 11) {
-    // If the card is an Ace
-    if (totalPoints + 11 + existingAces * 10 > 21) {
-      // If counting the Ace as 11 would cause the total to exceed 21
-      return 1; // Count the Ace as 1
+    if (totalPoints + 11 > 21) {
+      return 1;
+    } else if (totalPoints + 11 + (aceCount - 1) * 1 <= 21) {
+      return 11;
+    } else {
+      return 1;
     }
-    return 11; // Otherwise, count the Ace as 11
   }
   return cardValue;
 };
 
 drawCardBtn.onclick = () => {
+    const audio = new Audio("./assets/newCard.mp3");
+    audio.play();
   fetch(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`)
     .then((response) => response.json())
     .then((data) => {
@@ -177,7 +180,7 @@ const dealerDrawCard = () => {
           // Player busts
           console.log("You bust!");
           messages.innerHTML = "You Bust! Amount lost: " + bidAmount;
-        //   totalMoney -= bidAmount;
+          //   totalMoney -= bidAmount;
           localStorage.setItem("totalMoney", totalMoney);
           money.innerHTML = `Your total money is: ${totalMoney}`;
           setTimeout(() => {
@@ -188,7 +191,7 @@ const dealerDrawCard = () => {
           // Dealer wins
           console.log("Dealer wins!");
           messages.innerHTML = "You Lose! Amount lost: " + bidAmount;
-        //   totalMoney -= bidAmount;
+          //   totalMoney -= bidAmount;
           localStorage.setItem("totalMoney", totalMoney);
           money.innerHTML = `Your total money is: ${totalMoney}`;
           setTimeout(() => {
@@ -199,7 +202,7 @@ const dealerDrawCard = () => {
           // Dealer wins (tie)
           console.log("Dealer wins (tie)!");
           messages.innerHTML = "Dealer wins (tie)! Amount lost: " + bidAmount;
-        //   totalMoney -= bidAmount;
+          //   totalMoney -= bidAmount;
           localStorage.setItem("totalMoney", totalMoney);
           money.innerHTML = `Your total money is: ${totalMoney}`;
           setTimeout(() => {

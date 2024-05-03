@@ -49,6 +49,8 @@ cheatBtn.onclick = () => {
 
 // Add event listener to the money image
 moneyImage.onclick = (event) => {
+  const audio = new Audio("./assets/YouWinGold.wav");
+  audio.play();
   // Prevent further propagation of the click event
   event.stopPropagation();
 
