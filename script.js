@@ -10,6 +10,26 @@ if (totalMoney === null || totalMoney === undefined || isNaN(totalMoney)) {
 }
 const cheatBtn = document.getElementById("cheatBtn");
 const moneyImage = document.getElementById("moneyImage");
+const cleanStorage = document.getElementById("cleanStorage");
+
+cleanStorage.onclick = () => {
+  const lastCleared = localStorage.getItem("lastCleared");
+  const currentTime = new Date().getTime(); // Current time in milliseconds
+
+  if (lastCleared && currentTime - lastCleared < 3600000) {
+    // 3600000 milliseconds in an hour
+    alert("You can only clear the storage once every hour.");
+  } else {
+    localStorage.clear();
+    totalMoney = 100;
+    localStorage.setItem("totalMoney", totalMoney);
+    localStorage.setItem("lastCleared", currentTime); // Store the time of this click
+    moneyAmount.innerHTML = `Your total money is: ${totalMoney}`;
+    alert(
+      "Storage has been successfully cleared. You can clear again after one hour."
+    );
+  }
+};
 
 cheatBtn.onclick = () => {
   // Randomly position the money image on the screen
@@ -24,7 +44,7 @@ cheatBtn.onclick = () => {
   // Set a timer to hide the image after 1 second
   setTimeout(() => {
     moneyImage.style.display = "none";
-  }, 1000);
+  }, 800);
 };
 
 // Add event listener to the money image

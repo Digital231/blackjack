@@ -177,7 +177,7 @@ const dealerDrawCard = () => {
           // Player busts
           console.log("You bust!");
           messages.innerHTML = "You Bust! Amount lost: " + bidAmount;
-          totalMoney -= bidAmount;
+        //   totalMoney -= bidAmount;
           localStorage.setItem("totalMoney", totalMoney);
           money.innerHTML = `Your total money is: ${totalMoney}`;
           setTimeout(() => {
@@ -188,7 +188,7 @@ const dealerDrawCard = () => {
           // Dealer wins
           console.log("Dealer wins!");
           messages.innerHTML = "You Lose! Amount lost: " + bidAmount;
-          totalMoney -= bidAmount;
+        //   totalMoney -= bidAmount;
           localStorage.setItem("totalMoney", totalMoney);
           money.innerHTML = `Your total money is: ${totalMoney}`;
           setTimeout(() => {
@@ -199,7 +199,7 @@ const dealerDrawCard = () => {
           // Dealer wins (tie)
           console.log("Dealer wins (tie)!");
           messages.innerHTML = "Dealer wins (tie)! Amount lost: " + bidAmount;
-          totalMoney -= bidAmount;
+        //   totalMoney -= bidAmount;
           localStorage.setItem("totalMoney", totalMoney);
           money.innerHTML = `Your total money is: ${totalMoney}`;
           setTimeout(() => {
