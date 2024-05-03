@@ -88,3 +88,17 @@ h1 {
     "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
   font-weight: bold;
 }
+
+
+
+#moneyImage {
+  height: 100px;
+  width: 100px;
+  cursor: pointer;
+  transition: transform 0.2s; /* Smooth transition for a little feedback */
+}
+
+#moneyImage:hover {
+  transform: scale(1.1); /* Slightly enlarge the image on hover */
+}
+

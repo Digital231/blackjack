@@ -82,7 +82,27 @@ let totalMoney = Number(localStorage.getItem("totalMoney")) || 0;
 let bidAmount = Number(localStorage.getItem("bidAmount")) || 0;
 localStorage.setItem("totalMoney", totalMoney);
 totalMoneyHTML.innerHTML = `Your total money is: ${totalMoney}`;
-console.log(playerCards, dealerCards);
+
+function startGame() {
+  fetch(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=2`)
+    .then((response) => response.json())
+    .then((data) => {
+      playerCards.push(data.cards[0]);
+      dealerCards.push(data.cards[1]);
+      const cardValue = cardValues[data.cards[0].value] || 0;
+      const cardValue2 = cardValues[data.cards[1].value] || 0;
+      const aceValue2 = getAceValue(totalDealerPoints, cardValue2, dealerCards);
+      const aceValue = getAceValue(totalPlayerPoints, cardValue, playerCards);
+      totalPlayerPoints += aceValue;
+      totalDealerPoints += aceValue2;
+      playerPoints.innerHTML = `Player Points: ${totalPlayerPoints}`;
+      dealerPoints.innerHTML = `Dealer Points: ${totalDealerPoints}`;
+      playerCardsImg.innerHTML += `<img src="${data.cards[0].image}"/>`;
+      dealerCardsImg.innerHTML += `<img src="${data.cards[1].image}"/>`;
+    });
+}
+
+startGame();
 
 const getAceValue = (totalPoints, cardValue, playerCards) => {
   // Count the number of existing Aces in the hand
@@ -121,7 +141,7 @@ drawCardBtn.onclick = () => {
 
         setTimeout(() => {
           window.location.href = "./index.html";
-        }, 5000);
+        }, 3000);
       }
 
       console.log(data.cards[0]);
@@ -148,8 +168,9 @@ const dealerDrawCard = () => {
         localStorage.setItem("totalMoney", totalMoney);
         money.innerHTML = `Your total money is: ${totalMoney}`;
         setTimeout(() => {
+          reshuffle();
           window.location.href = "./index.html";
-        }, 5000);
+        }, 3000);
       } else if (totalDealerPoints >= 17) {
         // Dealer stands
         if (totalPlayerPoints > 21) {
@@ -160,8 +181,9 @@ const dealerDrawCard = () => {
           localStorage.setItem("totalMoney", totalMoney);
           money.innerHTML = `Your total money is: ${totalMoney}`;
           setTimeout(() => {
+            reshuffle();
             window.location.href = "./index.html";
-          }, 5000);
+          }, 3000);
         } else if (totalDealerPoints > totalPlayerPoints) {
           // Dealer wins
           console.log("Dealer wins!");
@@ -170,8 +192,9 @@ const dealerDrawCard = () => {
           localStorage.setItem("totalMoney", totalMoney);
           money.innerHTML = `Your total money is: ${totalMoney}`;
           setTimeout(() => {
+            reshuffle();
             window.location.href = "./index.html";
-          }, 5000);
+          }, 3000);
         } else if (totalDealerPoints === totalPlayerPoints) {
           // Dealer wins (tie)
           console.log("Dealer wins (tie)!");
@@ -180,8 +203,9 @@ const dealerDrawCard = () => {
           localStorage.setItem("totalMoney", totalMoney);
           money.innerHTML = `Your total money is: ${totalMoney}`;
           setTimeout(() => {
+            reshuffle();
             window.location.href = "./index.html";
-          }, 5000);
+          }, 3000);
         } else {
           // Player wins
           console.log("You win!");
@@ -190,8 +214,9 @@ const dealerDrawCard = () => {
           localStorage.setItem("totalMoney", totalMoney);
           money.innerHTML = `Your total money is: ${totalMoney}`;
           setTimeout(() => {
+            reshuffle();
             window.location.href = "./index.html";
-          }, 5000);
+          }, 3000);
         }
       } else {
         // Dealer draws another card
@@ -206,9 +231,13 @@ stopDrawCardBtn.onclick = () => {
 };
 
 reshuffleBtn.onclick = () => {
+  reshuffle();
+};
+
+function reshuffle() {
   fetch("https://www.deckofcardsapi.com/api/deck/" + deckId + "/shuffle/")
     .then((response) => response.json())
     .then((data) => {
       console.log(data);
     });
-};
+}
